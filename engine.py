@@ -47,7 +47,7 @@ def get_scaled_imgs(df):
     return np.array(imgs)
                     
 
-def get_data(BATCH_SIZE, path, transform):
+def get_data(BATCH_SIZE, path, transform, transform_test):
     train = pd.read_json(path / 'train.json')
     test = pd.read_json(path / 'test.json')
     scale_train = get_scaled_imgs(train)
@@ -61,7 +61,7 @@ def get_data(BATCH_SIZE, path, transform):
                                                    stratify=target)
     
     train_data = MyDataset(x_train, y_train, transform)
-    validation_data = MyDataset(x_validation, y_validation, transform)
+    validation_data = MyDataset(x_validation, y_validation, transform_test)
     #test_data = MyDataset(scale_test, None, transform)
 
     train_dataloader = DataLoader(train_data, 

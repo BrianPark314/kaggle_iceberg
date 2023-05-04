@@ -18,10 +18,10 @@ class resnet18(nn.Module):
     def __init__(self):
         super(resnet18,self).__init__()
         self.name = 'resnet18'
-        self.layer1 = nn.Linear(1000,512)
+        self.layer1 = nn.Linear(1000,32)
         self.Relu1 = nn.ReLU()
-        self.Dropout1 = nn.Dropout(p=0.5)
-        self.layer2 = nn.Linear(512, 2)
+        self.Dropout1 = nn.Dropout(p=0.7)
+        self.layer2 = nn.Linear(32, 2)
         self.net = torchvision.models.resnet18(weights = torchvision.models.ResNet18_Weights.DEFAULT)
         for p in self.net.parameters():
             p.requires_grad=False

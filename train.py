@@ -22,8 +22,8 @@ if device=='cuda':
 
 print(f'Current device is: {device}')
 args = easydict.EasyDict()
-args.BATCH_SIZE = 64
-args.NUM_EPOCHS = 100
+args.BATCH_SIZE = 32
+args.NUM_EPOCHS = 20
 args.desired_score = 0.85
 #args.path = Path("/content/gdrive/MyDrive/project/Dacon_tile/data/")
 args.path = Path("/Users/Shark/Projects/kaggle_iceberg/data")
@@ -33,6 +33,12 @@ args.transform = transforms.Compose([
         transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
     ])
 
+args.transform_test = transforms.Compose([ 
+        transforms.ToTensor(),
+        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+    ])
+
+
 def prep():
     print('='*50)
     model = md.resnet18()
@@ -41,7 +47,7 @@ def prep():
 
     model.to(device)
     
-    train_data, validation_data = eng.get_data(args.BATCH_SIZE, args.path, args.transform)
+    train_data, validation_data = eng.get_data(args.BATCH_SIZE, args.path, args.transform, args.transform_test)
     print('Data preperation complete.')
 
     print('='*50)
